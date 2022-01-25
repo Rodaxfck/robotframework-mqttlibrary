@@ -75,7 +75,8 @@ class MQTTKeywords(object):
         self._mqttc.on_disconnect = self._on_disconnect
         
         if ca_path != "":
-            self._mqttc.tls_set(ca_certs=ca_path)
+            self._mqttc.tls_set(ca_certs=ca_path, certfile=None, keyfile=None, cert_reqs=ssl.CERT_NONE, tls_version=ssl.PROTOCOL_TLSv1_2, ciphers=None)
+            self._mqttc.tls_insecure_set(True)
             logger.debug('SSL certificate= %s' % ca_path)
 
         if self._username:
