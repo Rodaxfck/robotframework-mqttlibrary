@@ -4,6 +4,7 @@ import paho.mqtt.publish as publish
 import robot
 import time
 import re
+import ssl
 
 from robot.libraries.DateTime import convert_time
 from robot.api import logger
