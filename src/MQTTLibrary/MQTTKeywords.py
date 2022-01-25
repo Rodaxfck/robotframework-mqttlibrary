@@ -41,7 +41,7 @@ class MQTTKeywords(object):
         self._username = username
         self._password = password
 
-    def connect(self, broker, port=1883, client_id="", clean_session=True):
+    def connect(self, broker, port=1883, client_id="", clean_session=True, ca_path=""):
         """ Connect to an MQTT broker. This is a pre-requisite step for publish
         and subscribe keywords.
 
@@ -73,6 +73,10 @@ class MQTTKeywords(object):
         # set callbacks
         self._mqttc.on_connect = self._on_connect
         self._mqttc.on_disconnect = self._on_disconnect
+        
+        if ca_path != "":
+            self._mqttc.tls_set(ca_certs=ca_path)
+            logger.debug('SSL certificate= %s' % ca_path)
 
         if self._username:
             self._mqttc.username_pw_set(self._username, self._password)
